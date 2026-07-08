@@ -1,0 +1,18 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Graduation Cap Top (Black/Dark) -->
+    <path
+        android:fillColor="#212121"
+        android:pathData="M12,3L1,9L12,15L23,9L12,3z" />
+    <!-- Graduation Cap Bottom (Gold) -->
+    <path
+        android:fillColor="#FFC107"
+        android:pathData="M5,13.18v2.81c0,0.73 0.4,1.41 1.04,1.76l5,2.73c0.6,0.33 1.32,0.33 1.92,0l5,-2.73c0.64,-0.35 1.04,-1.03 1.04,-1.76v-2.81l-6.04,3.3c-0.6,0.33 -1.32,0.33 -1.92,0L5,13.18z" />
+    <!-- Tassel (Gold) -->
+    <path
+        android:fillColor="#FFC107"
+        android:pathData="M21,9v9h-2v-7.91L12,15L21,9z" />
+</vector>

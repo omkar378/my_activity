@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Mytaskflow</string>
+    <string name="splash_subtitle">Manage your tasks flow easily</string>
+    <string name="loading">Loading...</string>
+    <string name="logo_desc">App Logo</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="login_subtitle">Sign in to continue</string>
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login_button">Login</string>
+    <string name="or_divider">OR</string>
+    <string name="google_login">Sign in with Google</string>
+    <string name="sign_up_prompt">Don\'t have an account? Sign Up</string>
+</resources>
