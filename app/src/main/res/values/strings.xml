@@ -12,4 +12,22 @@
     <string name="or_divider">OR</string>
     <string name="google_login">Sign in with Google</string>
     <string name="sign_up_prompt">Don\'t have an account? Sign Up</string>
+
+    <!-- Calendar Screen -->
+    <string name="calendar_title">Calendar</string>
+    <string name="calendar_subtitle">Manage your schedule and important dates.</string>
+    <string name="tasks_on">Tasks on %1$s, %2$d %3$s</string>
+    <string name="no_tasks_scheduled">No tasks scheduled</string>
+    <string name="enjoy_free_time">Enjoy your free time! 🎉</string>
+    <string name="sun">Sun</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_tasks">Tasks</string>
+    <string name="nav_calendar">Calendar</string>
+    <string name="nav_profile">Profile</string>
 </resources>
