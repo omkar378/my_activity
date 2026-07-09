@@ -67,7 +67,11 @@ class MainActivity : AppCompatActivity() {
             val password = etPassword.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                Toast.makeText(this, "Login successful for $email", Toast.LENGTH_SHORT).show()
+                val name = email.substringBefore("@")
+                UserManager.setUser(name, email)
+                Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, DashboardActivity::class.java))
+                finish()
             } else {
                 Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
             }
@@ -99,8 +103,11 @@ class MainActivity : AppCompatActivity() {
             val account = completedTask.getResult(ApiException::class.java)
             // Signed in successfully, show authenticated UI.
             val email = account?.email ?: "Unknown Email"
+            val name = account?.displayName ?: email.substringBefore("@")
+            UserManager.setUser(name, email)
             Toast.makeText(this, "Welcome $email", Toast.LENGTH_LONG).show()
-            // Proceed to next screen...
+            startActivity(Intent(this, DashboardActivity::class.java))
+            finish()
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.
             Log.w("GoogleSignIn", "signInResult:failed code=" + e.statusCode)
