@@ -21,10 +21,10 @@ class SplashActivity : AppCompatActivity() {
             insets
         }
 
-        // Delay for 3 seconds then start MainActivity
+        // Delay for 1 second then start MainActivity
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
             finish()
-        }, 3000)
+        }, 1000)
     }
 }

@@ -69,7 +69,7 @@ class DashboardActivity : AppCompatActivity() {
             Toast.makeText(this, "Tasks selected", Toast.LENGTH_SHORT).show()
         }
         findViewById<View>(R.id.navCalendar).setOnClickListener {
-            Toast.makeText(this, "Calendar selected", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, CalendarActivity::class.java))
         }
         findViewById<View>(R.id.navProfile).setOnClickListener {
             Toast.makeText(this, "Profile selected", Toast.LENGTH_SHORT).show()
