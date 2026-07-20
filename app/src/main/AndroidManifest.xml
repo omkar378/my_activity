@@ -40,17 +40,17 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".ProfileActivity"
+            android:name=".TasksActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".TaskListActivity"
+            android:name=".DeadlinesActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".AIPlannerActivity"
+            android:name=".TodayTasksActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

@@ -67,8 +67,6 @@ class MainActivity : AppCompatActivity() {
             val password = etPassword.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                val name = email.substringBefore("@")
-                UserManager.setUser(name, email)
                 Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, DashboardActivity::class.java))
                 finish()
@@ -103,8 +101,6 @@ class MainActivity : AppCompatActivity() {
             val account = completedTask.getResult(ApiException::class.java)
             // Signed in successfully, show authenticated UI.
             val email = account?.email ?: "Unknown Email"
-            val name = account?.displayName ?: email.substringBefore("@")
-            UserManager.setUser(name, email)
             Toast.makeText(this, "Welcome $email", Toast.LENGTH_LONG).show()
             startActivity(Intent(this, DashboardActivity::class.java))
             finish()

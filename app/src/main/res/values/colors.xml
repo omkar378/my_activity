@@ -13,6 +13,7 @@
     <color name="status_red">#FF4D4D</color>
     <color name="status_orange">#FF9F43</color>
     <color name="status_green">#28C76F</color>
-    <color name="accent_purple">#A050FF</color>
-    <color name="accent_pink">#FF4081</color>
+    <color name="blue_soft">#1E2538</color>
+    <color name="blue_border">#2A3550</color>
+    <color name="accent_purple">#8B5CF6</color>
 </resources>
