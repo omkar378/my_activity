@@ -7,13 +7,23 @@
     android:background="@drawable/stat_item_bg"
     android:padding="12dp">
 
+    <View
+        android:id="@+id/priorityIndicator"
+        android:layout_width="4dp"
+        android:layout_height="0dp"
+        android:background="@color/accent_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <CheckBox
         android:id="@+id/cbComplete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:buttonTint="@color/accent_blue"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/priorityIndicator"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -65,7 +75,20 @@
                 android:background="#444444" />
 
             <TextView
-                android:id="@+id/tvDateTime"
+                android:id="@+id/tvTaskTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="10dp"
+                android:layout_marginHorizontal="8dp"
+                android:background="#444444" />
+
+            <TextView
+                android:id="@+id/tvTaskDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_secondary"

@@ -33,7 +33,7 @@ class TodayTasksActivity : AppCompatActivity() {
 
         setupBottomNavigation()
         
-        findViewById<View>(R.id.fabAddToday).setOnClickListener {
+        findViewById<View>(R.id.fabAdd).setOnClickListener {
             startActivity(Intent(this, NewTaskActivity::class.java))
         }
 
@@ -76,7 +76,8 @@ class TodayTasksActivity : AppCompatActivity() {
                 view.findViewById<TextView>(R.id.tvTaskTitle).text = task.title
                 view.findViewById<TextView>(R.id.tvTaskDesc).text = task.description
                 view.findViewById<TextView>(R.id.tvPriority).text = task.priority
-                view.findViewById<TextView>(R.id.tvDateTime).text = "${task.date} ${task.time}"
+                view.findViewById<TextView>(R.id.tvTaskDate).text = task.date
+                view.findViewById<TextView>(R.id.tvTaskTime).text = task.time
                 
                 val cbComplete = view.findViewById<CheckBox>(R.id.cbComplete)
                 cbComplete.isChecked = task.status == "Completed"
@@ -126,8 +127,8 @@ class TodayTasksActivity : AppCompatActivity() {
             finish()
         }
 
-        findViewById<View>(R.id.navCalendar).setOnClickListener {
-            startActivity(Intent(this, DeadlinesActivity::class.java))
+        findViewById<View>(R.id.navAI).setOnClickListener {
+            startActivity(Intent(this, AIPlannerActivity::class.java))
             finish()
         }
 

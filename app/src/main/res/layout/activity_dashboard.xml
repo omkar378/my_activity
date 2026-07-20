@@ -22,7 +22,6 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,7 +57,6 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </RelativeLayout>
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -130,9 +128,6 @@
             <include layout="@layout/section_header" android:id="@+id/headerSubjects" />
             <include layout="@layout/item_add_card" android:id="@+id/cardAddSubject" />
 
-            <include layout="@layout/section_header" android:id="@+id/headerDeadlines" />
-            <include layout="@layout/item_add_card" android:id="@+id/cardAddDeadline" />
-
             <include layout="@layout/section_header" android:id="@+id/headerTasks" />
             <include layout="@layout/item_add_card" android:id="@+id/cardAddTask" />
 
@@ -145,9 +140,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/gradient_card_bg"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
                 android:padding="20dp">
                 <ImageView
                     android:id="@+id/aiIcon"
@@ -234,7 +226,6 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_nav_home"
-                app:tint="@color/accent_blue"
                 android:contentDescription="Home" />
             <TextView
                 android:layout_width="wrap_content"
@@ -275,7 +266,7 @@
             android:layout_weight="1.2" />
 
         <LinearLayout
-            android:id="@+id/navCalendar"
+            android:id="@+id/navAI"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -284,13 +275,12 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_nav_calendar"
-                app:tint="@color/text_secondary"
-                android:contentDescription="Calendar" />
+                android:src="@drawable/ic_nav_ai"
+                android:contentDescription="AI Planner" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Calendar"
+                android:text="AI"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />

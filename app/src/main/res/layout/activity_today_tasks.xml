@@ -207,7 +207,7 @@
             android:layout_weight="1.2" />
 
         <LinearLayout
-            android:id="@+id/navCalendar"
+            android:id="@+id/navAI"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -216,13 +216,13 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_nav_calendar"
+                android:src="@drawable/ic_nav_ai"
                 app:tint="@color/text_secondary"
-                android:contentDescription="Calendar" />
+                android:contentDescription="AI Planner" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Calendar"
+                android:text="AI"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
@@ -252,7 +252,7 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddToday"
+        android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"

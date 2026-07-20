@@ -45,12 +45,12 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".DeadlinesActivity"
+            android:name=".TodayTasksActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".TodayTasksActivity"
+            android:name=".SubjectProgressActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

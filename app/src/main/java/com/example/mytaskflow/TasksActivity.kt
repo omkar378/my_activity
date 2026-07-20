@@ -82,7 +82,8 @@ class TasksActivity : AppCompatActivity() {
                 view.findViewById<TextView>(R.id.tvTaskTitle).text = task.title
                 view.findViewById<TextView>(R.id.tvTaskDesc).text = task.description
                 view.findViewById<TextView>(R.id.tvPriority).text = task.priority
-                view.findViewById<TextView>(R.id.tvDateTime).text = "${task.date} ${task.time}"
+                view.findViewById<TextView>(R.id.tvTaskDate).text = task.date
+                view.findViewById<TextView>(R.id.tvTaskTime).text = task.time
                 
                 val cbComplete = view.findViewById<CheckBox>(R.id.cbComplete)
                 cbComplete.isChecked = task.status == "Completed"
@@ -135,8 +136,8 @@ class TasksActivity : AppCompatActivity() {
 
         // Current page is Tasks, so we don't need to do anything for navTasks
         
-        findViewById<View>(R.id.navCalendar).setOnClickListener {
-            startActivity(Intent(this, DeadlinesActivity::class.java))
+        findViewById<View>(R.id.navAI).setOnClickListener {
+            startActivity(Intent(this, AIPlannerActivity::class.java))
             finish()
         }
 

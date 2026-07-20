@@ -18,10 +18,14 @@ object TaskManager {
                     id = parts[0].toLong(),
                     title = parts[1],
                     description = parts[2],
+                    category = parts[3],
                     priority = parts[4],
                     date = parts[5],
                     time = parts[6],
-                    status = parts[7]
+                    status = parts[7],
+                    progress = if (parts.size > 8) parts[8].toIntOrNull() ?: 0 else 0,
+                    target = if (parts.size > 9) parts[9] else "",
+                    color = if (parts.size > 10) parts[10].toIntOrNull() ?: 0 else 0
                 ))
             }
         }
@@ -30,7 +34,7 @@ object TaskManager {
     private fun saveTasks(context: Context) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val dataSet = tasks.map { 
-            "${it.id}|${it.title}|${it.description}|dummy|${it.priority}|${it.date}|${it.time}|${it.status}"
+            "${it.id}|${it.title}|${it.description}|${it.category}|${it.priority}|${it.date}|${it.time}|${it.status}|${it.progress}|${it.target}|${it.color}"
         }.toSet()
         prefs.edit().putStringSet(TASKS_KEY, dataSet).apply()
     }

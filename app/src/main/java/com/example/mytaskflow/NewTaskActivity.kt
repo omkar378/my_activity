@@ -50,7 +50,7 @@ class NewTaskActivity : AppCompatActivity() {
         }
 
         // Priority Selection (Exclusive)
-        val priorities = listOf(R.id.priLow, R.id.priMedium, R.id.priHigh)
+        val priorities: List<Int> = listOf(R.id.priLow, R.id.priMedium, R.id.priHigh)
         priorities.forEach { id ->
             findViewById<TextView>(id).setOnClickListener { view ->
                 priorities.forEach { findViewById<View>(it).isSelected = false }
@@ -61,7 +61,7 @@ class NewTaskActivity : AppCompatActivity() {
         findViewById<View>(R.id.priMedium).isSelected = true
 
         // Status Selection (Exclusive)
-        val statuses = listOf(R.id.statusPending, R.id.statusInProgress, R.id.statusCompleted)
+        val statuses: List<Int> = listOf(R.id.statusPending, R.id.statusInProgress, R.id.statusCompleted)
         statuses.forEach { id ->
             findViewById<TextView>(id).setOnClickListener { view ->
                 statuses.forEach { findViewById<View>(it).isSelected = false }
@@ -73,6 +73,15 @@ class NewTaskActivity : AppCompatActivity() {
 
         // Date Picker
         tvDueDate = findViewById(R.id.tvDueDate)
+        
+        // Handle Prefilled Date
+        val prefilledDate = intent.getStringExtra("PREFILL_DATE")
+        if (!prefilledDate.isNullOrEmpty()) {
+            selectedDate = prefilledDate
+            tvDueDate.text = selectedDate
+            tvDueDate.setTextColor(resources.getColor(R.color.white, theme))
+        }
+
         tvDueDate.setOnClickListener {
             showDatePicker()
         }

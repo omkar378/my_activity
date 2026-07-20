@@ -41,12 +41,7 @@ class DashboardActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         // Subjects Card Click
         findViewById<View>(R.id.cardAddSubject).setOnClickListener {
-            Toast.makeText(this, "Opening Subject Progress...", Toast.LENGTH_SHORT).show()
-        }
-
-        // Deadlines Card Click
-        findViewById<View>(R.id.cardAddDeadline).setOnClickListener {
-            startActivity(Intent(this, DeadlinesActivity::class.java))
+            startActivity(Intent(this, SubjectProgressActivity::class.java))
         }
 
         // Tasks Card Click
@@ -95,8 +90,8 @@ class DashboardActivity : AppCompatActivity() {
         findViewById<View>(R.id.navTasks).setOnClickListener {
             startActivity(Intent(this, TasksActivity::class.java))
         }
-        findViewById<View>(R.id.navCalendar).setOnClickListener {
-            startActivity(Intent(this, DeadlinesActivity::class.java))
+        findViewById<View>(R.id.navAI).setOnClickListener {
+            startActivity(Intent(this, AIPlannerActivity::class.java))
         }
         findViewById<View>(R.id.navProfile).setOnClickListener {
             Toast.makeText(this, "Profile selected", Toast.LENGTH_SHORT).show()
@@ -155,13 +150,6 @@ class DashboardActivity : AppCompatActivity() {
         findViewById<View>(R.id.cardAddSubject).let {
             it.findViewById<TextView>(R.id.tvLabel).text = "Add your subjects"
             it.findViewById<ImageView>(R.id.ivIcon).setImageResource(R.drawable.ic_section_subjects)
-        }
-
-        // Deadlines
-        findViewById<View>(R.id.headerDeadlines).findViewById<TextView>(R.id.tvSectionTitle).text = "Upcoming Deadlines"
-        findViewById<View>(R.id.cardAddDeadline).let {
-            it.findViewById<TextView>(R.id.tvLabel).text = "No upcoming deadlines"
-            it.findViewById<ImageView>(R.id.ivIcon).setImageResource(R.drawable.ic_section_deadlines)
         }
 
         // Tasks
