@@ -40,6 +40,16 @@ class NewTaskActivity : AppCompatActivity() {
             finish()
         }
 
+        // Category Selection (Multiple allowed)
+        val categories = listOf(
+            R.id.catWebDev, R.id.catDSA, R.id.catDBMS, 
+            R.id.catOS, R.id.catMath, R.id.catOther
+        )
+        categories.forEach { id ->
+            findViewById<TextView>(id).setOnClickListener {
+                it.isSelected = !it.isSelected
+            }
+        }
         // Category Selection (Single selection for simplicity in filtering)
         val categories = listOf(
             R.id.catProjects, R.id.catGoals, R.id.catReminders, 
@@ -84,6 +94,8 @@ class NewTaskActivity : AppCompatActivity() {
         // Create Task
         findViewById<Button>(R.id.btnCreateTask).setOnClickListener {
             val title = findViewById<EditText>(R.id.etTaskTitle).text.toString()
+            if (title.isNotEmpty()) {
+                Toast.makeText(this, "Task '$title' Created!", Toast.LENGTH_SHORT).show()
             val description = findViewById<EditText>(R.id.etDescription).text.toString()
             val timeValue = etTime.text.toString()
 

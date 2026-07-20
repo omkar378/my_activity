@@ -110,6 +110,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+                    <TextView android:id="@+id/catWebDev" style="@style/CategoryChipStyle" android:text="Web Dev" />
+                    <TextView android:id="@+id/catDSA" style="@style/CategoryChipStyle" android:text="DSA" />
+                    <TextView android:id="@+id/catDBMS" style="@style/CategoryChipStyle" android:text="DBMS" />
+                    <TextView android:id="@+id/catOS" style="@style/CategoryChipStyle" android:text="OS" />
                     <TextView android:id="@+id/catProjects" style="@style/CategoryChipStyle" android:text="Projects" />
                     <TextView android:id="@+id/catGoals" style="@style/CategoryChipStyle" android:text="Goals" />
                     <TextView android:id="@+id/catReminders" style="@style/CategoryChipStyle" android:text="Reminders" />
@@ -121,6 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:orientation="horizontal">
+                    <TextView android:id="@+id/catMath" style="@style/CategoryChipStyle" android:text="Math" />
                     <TextView android:id="@+id/catAnalytics" style="@style/CategoryChipStyle" android:text="Analytics" />
                     <TextView android:id="@+id/catOther" style="@style/CategoryChipStyle" android:text="Other" />
                 </LinearLayout>
