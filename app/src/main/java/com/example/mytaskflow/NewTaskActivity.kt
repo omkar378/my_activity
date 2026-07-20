@@ -20,6 +20,8 @@ class NewTaskActivity : AppCompatActivity() {
     private lateinit var tvDueDate: TextView
     private lateinit var etTime: EditText
     private var selectedDate: String = ""
+    private var selectedCategory: String = "Other"
+    private var selectedPriority: String = "Medium"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +50,20 @@ class NewTaskActivity : AppCompatActivity() {
                 it.isSelected = !it.isSelected
             }
         }
+        // Category Selection (Single selection for simplicity in filtering)
+        val categories = listOf(
+            R.id.catProjects, R.id.catGoals, R.id.catReminders, 
+            R.id.catNotes, R.id.catAnalytics, R.id.catOther
+        )
+        categories.forEach { id ->
+            findViewById<TextView>(id).setOnClickListener { view ->
+                categories.forEach { findViewById<View>(it).isSelected = false }
+                view.isSelected = true
+                selectedCategory = (view as TextView).text.toString()
+            }
+        }
+        // Set default category
+        findViewById<View>(R.id.catOther).isSelected = true
 
         // Priority Selection (Exclusive)
         val priorities = listOf(R.id.priLow, R.id.priMedium, R.id.priHigh)
@@ -55,6 +71,7 @@ class NewTaskActivity : AppCompatActivity() {
             findViewById<TextView>(id).setOnClickListener { view ->
                 priorities.forEach { findViewById<View>(it).isSelected = false }
                 view.isSelected = true
+                selectedPriority = (view as TextView).text.toString()
             }
         }
         // Set default priority
@@ -79,6 +96,20 @@ class NewTaskActivity : AppCompatActivity() {
             val title = findViewById<EditText>(R.id.etTaskTitle).text.toString()
             if (title.isNotEmpty()) {
                 Toast.makeText(this, "Task '$title' Created!", Toast.LENGTH_SHORT).show()
+            val description = findViewById<EditText>(R.id.etDescription).text.toString()
+            val timeValue = etTime.text.toString()
+
+            if (title.isNotEmpty()) {
+                val newTask = Task(
+                    title = title,
+                    description = description,
+                    category = selectedCategory,
+                    priority = selectedPriority,
+                    date = selectedDate,
+                    time = timeValue
+                )
+                TaskRepository.addTask(newTask)
+                Toast.makeText(this, "Task '$title' Saved to $selectedCategory!", Toast.LENGTH_SHORT).show()
                 finish()
             } else {
                 Toast.makeText(this, "Please enter a task title", Toast.LENGTH_SHORT).show()
