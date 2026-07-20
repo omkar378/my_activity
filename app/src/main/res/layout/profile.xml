@@ -293,7 +293,7 @@
                     android:id="@+id/tvAITitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="AI Study Planner"
+                    android:text="@string/ai_study_planner"
                     android:textColor="@color/white"
                     android:textSize="22sp"
                     android:textStyle="bold"
@@ -305,7 +305,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Powered by Claude Sonnet 4.5. Ask for study plans, task priorities, or workflow tips."
+                    android:text="@string/ai_planner_desc"
                     android:textColor="#E0E0E0"
                     android:textSize="13sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -321,7 +321,7 @@
                     android:drawableStart="@android:drawable/ic_menu_send"
                     android:drawablePadding="8dp"
                     android:paddingHorizontal="20dp"
-                    android:text="Ask AI"
+                    android:text="@string/ask_ai"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="16sp"
@@ -339,7 +339,7 @@
                 android:layout_marginBottom="24dp"
                 android:background="@drawable/button_red_bg"
                 android:gravity="center"
-                android:text="Sign Out"
+                android:text="@string/sign_out"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -371,11 +371,11 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_nav_home"
                 app:tint="@color/text_secondary"
-                android:contentDescription="Home" />
+                android:contentDescription="@string/nav_home" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Home"
+                android:text="@string/nav_home"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
@@ -393,11 +393,11 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_nav_tasks"
                 app:tint="@color/text_secondary"
-                android:contentDescription="Tasks" />
+                android:contentDescription="@string/nav_tasks" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tasks"
+                android:text="@string/nav_tasks"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
@@ -421,11 +421,11 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_nav_calendar"
                 app:tint="@color/text_secondary"
-                android:contentDescription="Calendar" />
+                android:contentDescription="@string/nav_calendar" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Calendar"
+                android:text="@string/nav_calendar"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
@@ -443,11 +443,11 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_nav_profile"
                 app:tint="@color/accent_blue"
-                android:contentDescription="Profile" />
+                android:contentDescription="@string/nav_profile" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Profile"
+                android:text="@string/nav_profile"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/accent_blue"
                 android:textSize="12sp" />
@@ -459,7 +459,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
-        android:contentDescription="Add New"
+        android:contentDescription="@string/add_new"
         android:src="@drawable/ic_add_white"
         app:backgroundTint="@color/accent_blue"
         app:borderWidth="0dp"

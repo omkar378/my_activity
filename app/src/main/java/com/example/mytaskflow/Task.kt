@@ -10,5 +10,7 @@ data class Task(
     var progress: Int = 0,
     val target: String = "",
     val color: Int = 0,
+    var isCompleted: Boolean = false,
+    var completedTimestamp: Long = 0,
     val timestamp: Long = System.currentTimeMillis()
 )
