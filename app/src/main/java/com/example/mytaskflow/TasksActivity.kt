@@ -12,6 +12,9 @@ import androidx.core.view.WindowInsetsCompat
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 
+import android.widget.CheckBox
+import android.widget.ImageView
+
 class TasksActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,18 +84,42 @@ class TasksActivity : AppCompatActivity() {
                 view.findViewById<TextView>(R.id.tvPriority).text = task.priority
                 view.findViewById<TextView>(R.id.tvDateTime).text = "${task.date} ${task.time}"
                 
-                val tvStatus = view.findViewById<TextView>(R.id.tvStatus)
-                tvStatus.text = task.status
+                val cbComplete = view.findViewById<CheckBox>(R.id.cbComplete)
+                cbComplete.isChecked = task.status == "Completed"
                 
-                // Allow clicking the task to cycle status (Pending -> In Progress -> Completed -> Pending)
-                view.setOnClickListener {
-                    task.status = when (task.status) {
-                        "Pending" -> "In Progress"
-                        "In Progress" -> "Completed"
-                        else -> "Pending"
-                    }
+                // Checkbox to mark as completed
+                cbComplete.setOnCheckedChangeListener { _, isChecked ->
+                    task.status = if (isChecked) "Completed" else "Pending"
                     TaskManager.updateTask(this@TasksActivity)
-                    loadTasks() // Refresh list
+                    
+                    // Strike through text if completed
+                    if (isChecked) {
+                        view.findViewById<TextView>(R.id.tvTaskTitle).paintFlags = 
+                            view.findViewById<TextView>(R.id.tvTaskTitle).paintFlags or android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
+                        view.findViewById<TextView>(R.id.tvTaskTitle).setTextColor(resources.getColor(R.color.text_secondary, theme))
+                    } else {
+                        view.findViewById<TextView>(R.id.tvTaskTitle).paintFlags = 
+                            view.findViewById<TextView>(R.id.tvTaskTitle).paintFlags and android.graphics.Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                        view.findViewById<TextView>(R.id.tvTaskTitle).setTextColor(resources.getColor(R.color.white, theme))
+                    }
+
+                    // If we are in a filtered view, we might want to refresh immediately
+                    if (currentFilter != "All") {
+                        loadTasks()
+                    }
+                }
+
+                // Initial strike through check
+                if (task.status == "Completed") {
+                    view.findViewById<TextView>(R.id.tvTaskTitle).paintFlags = 
+                        view.findViewById<TextView>(R.id.tvTaskTitle).paintFlags or android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
+                    view.findViewById<TextView>(R.id.tvTaskTitle).setTextColor(resources.getColor(R.color.text_secondary, theme))
+                }
+
+                // Delete Task
+                view.findViewById<ImageView>(R.id.ivDelete).setOnClickListener {
+                    TaskManager.deleteTask(this@TasksActivity, task.id)
+                    loadTasks()
                 }
 
                 container.addView(view)
@@ -109,7 +136,8 @@ class TasksActivity : AppCompatActivity() {
         // Current page is Tasks, so we don't need to do anything for navTasks
         
         findViewById<View>(R.id.navCalendar).setOnClickListener {
-            // startActivity(Intent(this, CalendarActivity::class.java))
+            startActivity(Intent(this, DeadlinesActivity::class.java))
+            finish()
         }
 
         findViewById<View>(R.id.navProfile).setOnClickListener {

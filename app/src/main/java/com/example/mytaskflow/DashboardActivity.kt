@@ -26,6 +26,16 @@ class DashboardActivity : AppCompatActivity() {
         setupStats()
         setupSections()
         setupClickListeners()
+
+        if (intent.getBooleanExtra("SHOW_AI_PLANNER", false)) {
+            val aiCard = findViewById<View>(R.id.aiIcon).parent as? View
+            aiCard?.let { card ->
+                card.post {
+                    findViewById<androidx.core.widget.NestedScrollView>(R.id.dashboard_scroll)?.smoothScrollTo(0, card.top)
+                    Toast.makeText(this, "AI Study Planner is here!", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
     }
 
     private fun setupClickListeners() {
@@ -36,13 +46,12 @@ class DashboardActivity : AppCompatActivity() {
 
         // Deadlines Card Click
         findViewById<View>(R.id.cardAddDeadline).setOnClickListener {
-            Toast.makeText(this, "Opening Upcoming Deadlines...", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, DeadlinesActivity::class.java))
         }
 
         // Tasks Card Click
         findViewById<View>(R.id.cardAddTask).setOnClickListener {
-            val intent = Intent(this, TasksActivity::class.java)
-            intent.putExtra("FILTER", "All")
+            val intent = Intent(this, TodayTasksActivity::class.java)
             startActivity(intent)
         }
 
@@ -68,7 +77,9 @@ class DashboardActivity : AppCompatActivity() {
         // AI Study Planner Card Click
         findViewById<View>(R.id.aiIcon).parent?.let { parent ->
             (parent as? View)?.setOnClickListener {
-                Toast.makeText(this, "Opening AI Study Planner...", Toast.LENGTH_SHORT).show()
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = android.net.Uri.parse("https://notebooklm.google.com/")
+                startActivity(intent)
             }
         }
         
@@ -85,7 +96,7 @@ class DashboardActivity : AppCompatActivity() {
             startActivity(Intent(this, TasksActivity::class.java))
         }
         findViewById<View>(R.id.navCalendar).setOnClickListener {
-            Toast.makeText(this, "Calendar selected", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, DeadlinesActivity::class.java))
         }
         findViewById<View>(R.id.navProfile).setOnClickListener {
             Toast.makeText(this, "Profile selected", Toast.LENGTH_SHORT).show()
