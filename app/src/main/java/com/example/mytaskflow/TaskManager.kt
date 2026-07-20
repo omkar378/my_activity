@@ -44,6 +44,11 @@ object TaskManager {
         saveTasks(context)
     }
 
+    fun deleteTask(context: Context, taskId: Long) {
+        tasks.removeAll { it.id == taskId }
+        saveTasks(context)
+    }
+
     fun getAllTasks(): List<Task> = tasks
 
     fun getTasksCountByStatus(status: String): Int {
