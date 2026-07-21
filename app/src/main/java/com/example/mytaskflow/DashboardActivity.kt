@@ -23,11 +23,19 @@ class DashboardActivity : AppCompatActivity() {
             insets
         }
 
-        findViewById<TextView>(R.id.tvGreeting).text = "Good Evening, ${UserManager.userName}"
-
         setupStats()
         setupSections()
         setupClickListeners()
+
+        if (intent.getBooleanExtra("SHOW_AI_PLANNER", false)) {
+            val aiCard = findViewById<View>(R.id.aiIcon).parent as? View
+            aiCard?.let { card ->
+                card.post {
+                    findViewById<androidx.core.widget.NestedScrollView>(R.id.dashboard_scroll)?.smoothScrollTo(0, card.top)
+                    Toast.makeText(this, "AI Study Planner is here!", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
     }
 
     private fun setupClickListeners() {
@@ -38,12 +46,27 @@ class DashboardActivity : AppCompatActivity() {
 
         // Deadlines Card Click
         findViewById<View>(R.id.cardAddDeadline).setOnClickListener {
-            Toast.makeText(this, "Opening Upcoming Deadlines...", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, DeadlinesActivity::class.java))
         }
 
         // Tasks Card Click
         findViewById<View>(R.id.cardAddTask).setOnClickListener {
-            Toast.makeText(this, "Opening Today\'s Tasks...", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, TodayTasksActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Stat Cards Clicks
+        findViewById<View>(R.id.statTotal).setOnClickListener {
+            openTasksWithFilter("All")
+        }
+        findViewById<View>(R.id.statCompleted).setOnClickListener {
+            openTasksWithFilter("Completed")
+        }
+        findViewById<View>(R.id.statInProgress).setOnClickListener {
+            openTasksWithFilter("In Progress")
+        }
+        findViewById<View>(R.id.statPending).setOnClickListener {
+            openTasksWithFilter("Pending")
         }
 
         // Goals Card Click
@@ -54,7 +77,9 @@ class DashboardActivity : AppCompatActivity() {
         // AI Study Planner Card Click
         findViewById<View>(R.id.aiIcon).parent?.let { parent ->
             (parent as? View)?.setOnClickListener {
-                Toast.makeText(this, "Opening AI Study Planner...", Toast.LENGTH_SHORT).show()
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = android.net.Uri.parse("https://notebooklm.google.com/")
+                startActivity(intent)
             }
         }
         
@@ -65,44 +90,62 @@ class DashboardActivity : AppCompatActivity() {
 
         // Nav Items Click
         findViewById<View>(R.id.navHome).setOnClickListener {
-            Toast.makeText(this, "Home selected", Toast.LENGTH_SHORT).show()
+            // Already home
         }
         findViewById<View>(R.id.navTasks).setOnClickListener {
-            Toast.makeText(this, "Tasks selected", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, TasksActivity::class.java))
         }
         findViewById<View>(R.id.navCalendar).setOnClickListener {
-            startActivity(Intent(this, CalendarActivity::class.java))
+            startActivity(Intent(this, DeadlinesActivity::class.java))
         }
         findViewById<View>(R.id.navProfile).setOnClickListener {
             Toast.makeText(this, "Profile selected", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, ProfileActivity::class.java))
         }
     }
 
+    private fun openTasksWithFilter(filter: String) {
+        val intent = Intent(this, TasksActivity::class.java)
+        intent.putExtra("FILTER", filter)
+        startActivity(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupStats()
+    }
+
     private fun setupStats() {
+        // Update the top right counter
+        findViewById<TextView>(R.id.tvHeaderTaskCount).text = TaskManager.getTotalTasksCount().toString()
+        
         // Total
         val totalView = findViewById<View>(R.id.statTotal)
         totalView.findViewById<TextView>(R.id.tvStatLabel).text = "Total"
+        totalView.findViewById<TextView>(R.id.tvStatValue).text = TaskManager.getTotalTasksCount().toString()
         totalView.findViewById<ImageView>(R.id.ivStatIcon).setImageResource(R.drawable.ic_stat_total)
 
         // Completed
         val completedView = findViewById<View>(R.id.statCompleted)
         completedView.findViewById<TextView>(R.id.tvStatLabel).text = "Completed"
+        completedView.findViewById<TextView>(R.id.tvStatValue).text = TaskManager.getTasksCountByStatus("Completed").toString()
         completedView.findViewById<ImageView>(R.id.ivStatIcon).setImageResource(R.drawable.ic_stat_completed)
 
         // In Progress
         val inProgressView = findViewById<View>(R.id.statInProgress)
         inProgressView.findViewById<TextView>(R.id.tvStatLabel).text = "In Progress"
+        inProgressView.findViewById<TextView>(R.id.tvStatValue).text = TaskManager.getTasksCountByStatus("In Progress").toString()
         inProgressView.findViewById<ImageView>(R.id.ivStatIcon).setImageResource(R.drawable.ic_stat_in_progress)
 
         // Pending
         val pendingView = findViewById<View>(R.id.statPending)
         pendingView.findViewById<TextView>(R.id.tvStatLabel).text = "Pending"
+        pendingView.findViewById<TextView>(R.id.tvStatValue).text = TaskManager.getTasksCountByStatus("Pending").toString()
         pendingView.findViewById<ImageView>(R.id.ivStatIcon).setImageResource(R.drawable.ic_stat_pending)
 
         // Overdue
         val overdueView = findViewById<View>(R.id.statOverdue)
         overdueView.findViewById<TextView>(R.id.tvStatLabel).text = "Overdue"
+        overdueView.findViewById<TextView>(R.id.tvStatValue).text = TaskManager.getOverdueCount().toString()
         overdueView.findViewById<ImageView>(R.id.ivStatIcon).setImageResource(R.drawable.ic_stat_overdue)
     }
 

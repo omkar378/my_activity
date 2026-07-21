@@ -5,151 +5,148 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_bg"
-    tools:context=".TasksActivity">
+    tools:context=".TodayTasksActivity">
 
     <TextView
-        android:id="@+id/tvMyTasks"
+        android:id="@+id/tvTodayHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
-        android:text="My Tasks"
+        android:text="Today's Tasks"
         android:textColor="@color/white"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <HorizontalScrollView
-        android:id="@+id/chipScroll"
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Focus on your daily goals"
+        android:textColor="@color/text_secondary"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTodayHeader" />
+
+    <!-- Progress Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/progressCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:paddingHorizontal="16dp"
-        android:scrollbars="none"
-        app:layout_constraintTop_toBottomOf="@id/tvMyTasks">
+        android:layout_margin="20dp"
+        app:cardBackgroundColor="@color/card_bg"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        app:layout_constraintTop_toBottomOf="@id/tvDate">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="20dp">
 
             <TextView
-                android:id="@+id/chipAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/chip_filter_selector"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="8dp"
-                android:text="All"
-                android:textColor="@color/white" />
+                android:text="Daily Progress"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/todayProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="12dp"
+                android:progress="0"
+                android:progressDrawable="@drawable/btn_blue_rounded" />
 
             <TextView
-                android:id="@+id/chipPending"
+                android:id="@+id/tvProgressPercent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/chip_filter_selector"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="8dp"
-                android:text="Pending"
-                android:textColor="@color/text_secondary" />
-
-            <TextView
-                android:id="@+id/chipInProgress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/chip_filter_selector"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="8dp"
-                android:text="In Progress"
-                android:textColor="@color/text_secondary" />
-
-            <TextView
-                android:id="@+id/chipCompleted"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/chip_filter_selector"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="8dp"
-                android:text="Completed"
-                android:textColor="@color/text_secondary" />
+                android:layout_marginTop="8dp"
+                android:text="0% Completed"
+                android:textColor="@color/accent_blue"
+                android:textSize="12sp" />
         </LinearLayout>
-    </HorizontalScrollView>
+    </androidx.cardview.widget.CardView>
 
     <!-- Empty State Container -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/emptyState"
+        android:id="@+id/emptyStateToday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/bg_empty_card"
         android:padding="40dp"
         android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@id/chipScroll">
+        app:layout_constraintTop_toBottomOf="@id/progressCard">
 
         <ImageView
-            android:id="@+id/ivEmptyIcon"
+            android:id="@+id/ivEmptyIconToday"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@drawable/ic_tasks_empty"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="Empty tasks icon" />
+            android:contentDescription="No tasks for today" />
 
         <TextView
-            android:id="@+id/tvNoTasks"
+            android:id="@+id/tvNoTasksToday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="No tasks here."
+            android:text="No tasks for today."
             android:textColor="@color/text_secondary"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivEmptyIcon" />
+            app:layout_constraintTop_toBottomOf="@id/ivEmptyIconToday" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnAddFirstTask"
+            android:id="@+id/btnAddTodayTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:background="@drawable/btn_blue_rounded"
             android:paddingHorizontal="32dp"
-            android:text="+ Add your first task"
+            android:text="+ Add a task"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvNoTasks" />
+            app:layout_constraintTop_toBottomOf="@id/tvNoTasksToday" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Task List Container -->
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/taskListScroll"
+        android:id="@+id/todayTasksScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:paddingHorizontal="20dp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/bottomNav"
-        app:layout_constraintTop_toBottomOf="@id/chipScroll">
+        app:layout_constraintTop_toBottomOf="@id/progressCard">
 
         <LinearLayout
-            android:id="@+id/taskListContainer"
+            android:id="@+id/todayTasksContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="100dp" />
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Navigation (Copied from Dashboard for consistency) -->
+    <!-- Navigation -->
     <LinearLayout
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
@@ -171,7 +168,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_nav_home"
-                app:tint="@color/text_secondary" />
+                app:tint="@color/text_secondary"
+                android:contentDescription="Home" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -192,7 +190,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_nav_tasks"
-                app:tint="@color/accent_blue" />
+                app:tint="@color/accent_blue"
+                android:contentDescription="Tasks" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -218,7 +217,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_nav_calendar"
-                app:tint="@color/text_secondary" />
+                app:tint="@color/text_secondary"
+                android:contentDescription="Calendar" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -239,7 +239,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_nav_profile"
-                app:tint="@color/text_secondary" />
+                app:tint="@color/text_secondary"
+                android:contentDescription="Profile" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -251,7 +252,7 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAdd"
+        android:id="@+id/fabAddToday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
@@ -264,6 +265,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:maxImageSize="36dp"
-        app:tint="@color/white" />
+        app:tint="@color/white"
+        android:contentDescription="Add New Task" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
