@@ -7,5 +7,8 @@ data class Task(
     val priority: String = "Medium",
     val date: String = "",
     val time: String = "",
+    var progress: Int = 0,
+    val target: String = "",
+    val color: Int = 0,
     val timestamp: Long = System.currentTimeMillis()
 )

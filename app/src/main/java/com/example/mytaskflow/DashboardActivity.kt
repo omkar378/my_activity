@@ -23,6 +23,8 @@ class DashboardActivity : AppCompatActivity() {
             insets
         }
 
+        findViewById<TextView>(R.id.tvGreeting).text = "Good Evening, ${UserManager.userName}"
+
         setupStats()
         setupSections()
         setupClickListeners()
@@ -72,6 +74,7 @@ class DashboardActivity : AppCompatActivity() {
             Toast.makeText(this, "Calendar selected", Toast.LENGTH_SHORT).show()
         }
         findViewById<View>(R.id.navProfile).setOnClickListener {
+            Toast.makeText(this, "Profile selected", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, ProfileActivity::class.java))
         }
     }
