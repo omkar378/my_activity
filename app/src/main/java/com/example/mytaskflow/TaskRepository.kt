@@ -29,10 +29,6 @@ object TaskRepository {
             val updatedTask = tasks[index]
             val newProgress = (updatedTask.progress + delta).coerceIn(0, 100)
             updatedTask.progress = newProgress
-            updatedTask.isCompleted = (newProgress == 100)
-            if (updatedTask.isCompleted) {
-                updatedTask.completedTimestamp = System.currentTimeMillis()
-            }
         }
     }
 }

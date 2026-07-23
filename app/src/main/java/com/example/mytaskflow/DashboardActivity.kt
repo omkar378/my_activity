@@ -74,6 +74,7 @@ class DashboardActivity : AppCompatActivity() {
             Toast.makeText(this, "Calendar coming soon!", Toast.LENGTH_SHORT).show()
         }
         findViewById<View>(R.id.navProfile).setOnClickListener {
+            Toast.makeText(this, "Profile selected", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, ProfileActivity::class.java))
         }
 
