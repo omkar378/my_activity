@@ -323,6 +323,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTasks"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerTaskList" />
 
             <TextView
                 android:id="@+id/tvNoTasks"
@@ -336,5 +344,16 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+    <TextView
+        android:id="@+id/tvNoTasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No tasks found in this category"
+        android:textColor="@color/text_secondary"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerTaskList" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

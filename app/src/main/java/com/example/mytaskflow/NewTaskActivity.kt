@@ -40,7 +40,7 @@ class NewTaskActivity : AppCompatActivity() {
 
         // Category Selection (Multiple allowed)
         val categories = listOf(
-            R.id.catWebDev, R.id.catDSA, R.id.catDBMS, 
+            R.id.catWebDev, R.id.catDSA, R.id.catDBMS,
             R.id.catOS, R.id.catMath, R.id.catOther
         )
         categories.forEach { id ->

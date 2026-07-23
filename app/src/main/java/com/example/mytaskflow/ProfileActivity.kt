@@ -47,12 +47,14 @@ class ProfileActivity : AppCompatActivity() {
             finish()
         }
 
-        // Tasks, Calendar (Toasts for now)
+        // Tasks, Calendar
         findViewById<View>(R.id.navTasks).setOnClickListener {
-            Toast.makeText(this, "Tasks selected", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, TaskListActivity::class.java)
+            intent.putExtra("CATEGORY", "Tasks")
+            startActivity(intent)
         }
         findViewById<View>(R.id.navCalendar).setOnClickListener {
-            Toast.makeText(this, "Calendar selected", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Calendar coming soon!", Toast.LENGTH_SHORT).show()
         }
 
         // Profile (Current)
