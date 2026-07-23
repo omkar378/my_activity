@@ -50,6 +50,7 @@
                     android:layout_height="80dp"
                     android:background="@drawable/circle_blue_dark">
                     <TextView
+                        android:id="@+id/tvProfileInitial"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -318,6 +319,69 @@
                     app:tint="@color/accent_blue" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <!-- AI Study Planner Card -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_ai_card"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/tvAITitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ai_study_planner"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvAISubtitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/ai_planner_desc"
+                    android:textColor="#E0E0E0"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvAITitle" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnAskAI"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_ask_ai_btn"
+                    android:drawableStart="@android:drawable/ic_menu_send"
+                    android:drawablePadding="8dp"
+                    android:paddingHorizontal="20dp"
+                    android:text="@string/ask_ai"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/tvAISubtitle" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSignOut"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/button_red_bg"
+                android:gravity="center"
+                android:text="@string/sign_out"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -345,11 +409,11 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_nav_home"
                 app:tint="@color/text_secondary"
-                android:contentDescription="Home" />
+                android:contentDescription="@string/nav_home" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Home"
+                android:text="@string/nav_home"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
@@ -367,11 +431,11 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_nav_tasks"
                 app:tint="@color/text_secondary"
-                android:contentDescription="Tasks" />
+                android:contentDescription="@string/nav_tasks" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tasks"
+                android:text="@string/nav_tasks"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
@@ -395,11 +459,11 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_nav_calendar"
                 app:tint="@color/text_secondary"
-                android:contentDescription="Calendar" />
+                android:contentDescription="@string/nav_calendar" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Calendar"
+                android:text="@string/nav_calendar"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
@@ -417,11 +481,11 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_nav_profile"
                 app:tint="@color/accent_blue"
-                android:contentDescription="Profile" />
+                android:contentDescription="@string/nav_profile" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Profile"
+                android:text="@string/nav_profile"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/accent_blue"
                 android:textSize="12sp" />
@@ -433,7 +497,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
-        android:contentDescription="Add New"
+        android:contentDescription="@string/add_new"
         android:src="@drawable/ic_add_white"
         app:backgroundTint="@color/accent_blue"
         app:borderWidth="0dp"
