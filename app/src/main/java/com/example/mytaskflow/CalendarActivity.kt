@@ -1,155 +1,147 @@
 package com.example.mytaskflow
 
-import android.app.DatePickerDialog
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.mytaskflow.adapter.CalendarAdapter
-import com.example.mytaskflow.adapter.CalendarDay
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
 
 class CalendarActivity : AppCompatActivity() {
 
-    private lateinit var rvCalendar: RecyclerView
-    private lateinit var tvMonthYear: TextView
-    private lateinit var tvSelectedDateTasks: TextView
-    private lateinit var btnPrevMonth: ImageView
-    private lateinit var btnNextMonth: ImageView
+    private lateinit var webView: WebView
+    private lateinit var progressBar: ProgressBar
+    private lateinit var errorLayout: LinearLayout
+    private lateinit var btnRetry: Button
     
-    private val calendar = Calendar.getInstance()
-    private var selectedDate = Calendar.getInstance()
+    private val streamlitUrl = "https://ai-learning-path-chatbot-mqdfbdqzotyxfmwv4zsvxp.streamlit.app/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_calendar)
         
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        val root = findViewById<View>(R.id.main)
+        ViewCompat.setOnApplyWindowInsetsListener(root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
         initViews()
-        setupCalendar()
-        setupMonthNavigation()
+        setupWebView()
         setupBottomNavigation()
+        handleBackNavigation()
+
+        // Load page if state is not saved
+        if (savedInstanceState == null) {
+            loadStreamlitApp()
+        } else {
+            webView.restoreState(savedInstanceState)
+        }
     }
 
     private fun initViews() {
-        rvCalendar = findViewById(R.id.rvCalendar)
-        tvMonthYear = findViewById(R.id.tvMonthYear)
-        tvSelectedDateTasks = findViewById(R.id.tvSelectedDateTasks)
-        btnPrevMonth = findViewById(R.id.btnPrevMonth)
-        btnNextMonth = findViewById(R.id.btnNextMonth)
-        
-        // Initial text
-        updateMonthYearText()
-        updateSelectedDateText(selectedDate)
-    }
+        webView = findViewById(R.id.webView)
+        progressBar = findViewById(R.id.progressBar)
+        errorLayout = findViewById(R.id.errorLayout)
+        btnRetry = findViewById(R.id.btnRetry)
 
-    private fun updateMonthYearText() {
-        val sdf = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
-        tvMonthYear.text = sdf.format(calendar.time)
-    }
-
-    private fun updateSelectedDateText(date: Calendar) {
-        val sdf = SimpleDateFormat("EEEE, d MMM", Locale.getDefault())
-        tvSelectedDateTasks.text = "Tasks on ${sdf.format(date.time)}"
-    }
-
-    private fun setupCalendar() {
-        val days = mutableListOf<CalendarDay>()
-        
-        val tempCal = calendar.clone() as Calendar
-        tempCal.set(Calendar.DAY_OF_MONTH, 1)
-        
-        // Month start day (1=Sun, 2=Mon, ..., 7=Sat)
-        val firstDayOfWeek = tempCal.get(Calendar.DAY_OF_WEEK)
-        val emptyDays = firstDayOfWeek - 1
-        
-        for (i in 0 until emptyDays) {
-            days.add(CalendarDay(""))
+        btnRetry.setOnClickListener {
+            errorLayout.visibility = View.GONE
+            webView.visibility = View.VISIBLE
+            loadStreamlitApp()
         }
-        
-        val maxDays = tempCal.getActualMaximum(Calendar.DAY_OF_MONTH)
-        
-        // In a real app, you'd fetch tasks for the current month here
-        // Using some random task indicators for demo
-        val taskDays = setOf(5, 12, 18, 25) 
+    }
 
-        for (i in 1..maxDays) {
-            val isSelected = i == selectedDate.get(Calendar.DAY_OF_MONTH) &&
-                    calendar.get(Calendar.MONTH) == selectedDate.get(Calendar.MONTH) &&
-                    calendar.get(Calendar.YEAR) == selectedDate.get(Calendar.YEAR)
-            
-            days.add(
-                CalendarDay(
-                    day = i.toString(),
-                    isSelected = isSelected,
-                    hasTask = taskDays.contains(i)
-                )
-            )
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun setupWebView() {
+        webView.settings.apply {
+            javaScriptEnabled = true
+            domStorageEnabled = true
+            useWideViewPort = true
+            loadWithOverviewMode = true
+            // Support for zoom but keep controls hidden as per standard app look
+            setSupportZoom(true)
+            builtInZoomControls = true
+            displayZoomControls = false
         }
-        
-        val adapter = CalendarAdapter(days) { clickedDay, _ ->
-            if (clickedDay.day.isNotEmpty()) {
-                val dayInt = clickedDay.day.toInt()
-                selectedDate = calendar.clone() as Calendar
-                selectedDate.set(Calendar.DAY_OF_MONTH, dayInt)
-                updateSelectedDateText(selectedDate)
+
+        webView.webViewClient = object : WebViewClient() {
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+                progressBar.visibility = View.VISIBLE
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                progressBar.visibility = View.GONE
+            }
+
+            override fun onReceivedError(
+                view: WebView?,
+                request: WebResourceRequest?,
+                error: WebResourceError?
+            ) {
+                super.onReceivedError(view, request, error)
+                // Show error screen if it's the main frame that failed
+                if (request?.isForMainFrame == true) {
+                    showError()
+                }
             }
         }
-        
-        rvCalendar.layoutManager = GridLayoutManager(this, 7)
-        rvCalendar.adapter = adapter
     }
 
-    private fun setupMonthNavigation() {
-        btnPrevMonth.setOnClickListener {
-            calendar.add(Calendar.MONTH, -1)
-            updateMonthYearText()
-            setupCalendar()
-        }
-
-        btnNextMonth.setOnClickListener {
-            calendar.add(Calendar.MONTH, 1)
-            updateMonthYearText()
-            setupCalendar()
-        }
-
-        tvMonthYear.setOnClickListener {
-            showDatePicker()
+    private fun loadStreamlitApp() {
+        if (isNetworkAvailable()) {
+            webView.loadUrl(streamlitUrl)
+        } else {
+            showError()
         }
     }
 
-    private fun showDatePicker() {
-        val datePickerDialog = DatePickerDialog(
-            this,
-            { _, year, month, dayOfMonth ->
-                calendar.set(Calendar.YEAR, year)
-                calendar.set(Calendar.MONTH, month)
-                selectedDate.set(year, month, dayOfMonth)
-                updateMonthYearText()
-                updateSelectedDateText(selectedDate)
-                setupCalendar()
-            },
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
-        )
-        datePickerDialog.show()
+    private fun showError() {
+        webView.visibility = View.GONE
+        progressBar.visibility = View.GONE
+        errorLayout.visibility = View.VISIBLE
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+        return when {
+            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            else -> false
+        }
+    }
+
+    private fun handleBackNavigation() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (webView.canGoBack()) {
+                    webView.goBack()
+                } else {
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
     }
 
     private fun setupBottomNavigation() {
@@ -159,19 +151,24 @@ class CalendarActivity : AppCompatActivity() {
         }
         
         findViewById<View>(R.id.navTasks).setOnClickListener {
-            Toast.makeText(this, "Tasks selected", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, NewTaskActivity::class.java))
+            finish()
         }
         
-        findViewById<View>(R.id.navCalendar).setOnClickListener {
-            // Already on Calendar
-        }
+        // Already on AI Planner (navCalendar)
         
         findViewById<View>(R.id.navProfile).setOnClickListener {
-            Toast.makeText(this, "Profile selected", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, ProfileActivity::class.java))
+            finish()
         }
-        
+
         findViewById<View>(R.id.fabAdd).setOnClickListener {
             startActivity(Intent(this, NewTaskActivity::class.java))
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        webView.saveState(outState)
     }
 }

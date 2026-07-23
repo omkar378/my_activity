@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Configure Google Sign-In
+
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()

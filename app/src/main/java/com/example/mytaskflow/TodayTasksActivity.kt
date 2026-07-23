@@ -122,17 +122,18 @@ class TodayTasksActivity : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.navTasks).setOnClickListener {
-            startActivity(Intent(this, TasksActivity::class.java))
+            startActivity(Intent(this, NewTaskActivity::class.java))
             finish()
         }
 
         findViewById<View>(R.id.navCalendar).setOnClickListener {
-            startActivity(Intent(this, DeadlinesActivity::class.java))
+            startActivity(Intent(this, CalendarActivity::class.java))
             finish()
         }
 
         findViewById<View>(R.id.navProfile).setOnClickListener {
-            Toast.makeText(this, "Profile selected", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, ProfileActivity::class.java))
+            finish()
         }
     }
 }

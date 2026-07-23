@@ -30,4 +30,44 @@
     <string name="nav_tasks">Tasks</string>
     <string name="nav_calendar">Calendar</string>
     <string name="nav_profile">Profile</string>
+
+    <!-- Tasks Screen -->
+    <string name="my_tasks">My Tasks</string>
+    <string name="filter_all">All</string>
+    <string name="filter_pending">Pending</string>
+    <string name="filter_in_progress">In Progress</string>
+    <string name="filter_completed">Completed</string>
+    <string name="no_tasks_here">No tasks here yet.</string>
+    <string name="add_first_task">Add your first task</string>
+
+    <!-- Profile Screen -->
+    <string name="profile_title">Profile</string>
+    <string name="profile_initial">O</string>
+    <string name="profile_name">Omkar</string>
+    <string name="profile_email">omkar@example.com</string>
+    <string name="student_mode">Student Mode</string>
+    <string name="main_menu_label">MAIN MENU</string>
+    <string name="menu_projects">Subjects &amp; Projects</string>
+    <string name="menu_goals">Study Goals</string>
+    <string name="menu_reminders">Reminders</string>
+    <string name="menu_notes">Notes</string>
+    <string name="dashboard_subtitle">Keep learning, keep growing.</string>
+    <string name="dashboard_overview">Dashboard Overview</string>
+    <string name="track_journey">Track your learning journey</string>
+    <string name="ai_study_planner">AI Study Planner</string>
+    <string name="ai_planner_subtitle">Get a personalized study plan in seconds</string>
+    <string name="quote">\&quot;The expert in anything was once a beginner.\&quot;</string>
+    <string name="title_goals">My Goals</string>
+    <string name="this_week_progress">This Week\'s Progress</string>
+    <string name="goals_progress_subtitle">Keep it up! You\'re doing great.</string>
+    <string name="motivation_title">Stay Focused</string>
+    <string name="motivation_subtitle">Small steps lead to big results.</string>
+    <string name="weekly_summary">Weekly Summary</string>
+    <string name="menu_analytics">Learning Analytics</string>
+    <string name="ai_planner_desc">Powered by Claude Sonnet 4.5. Ask for study plans, task priorities, or workflow tips.</string>
+    <string name="ask_ai">Ask AI</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="add_new">Add New</string>
+    <string name="date_range_format">%1$s - %2$s</string>
+    <string name="tasks_completed_format">%1$d / %2$d tasks completed</string>
 </resources>

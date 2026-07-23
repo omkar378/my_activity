@@ -133,15 +133,19 @@ class TasksActivity : AppCompatActivity() {
             finish()
         }
 
-        // Current page is Tasks, so we don't need to do anything for navTasks
+        findViewById<View>(R.id.navTasks).setOnClickListener {
+            startActivity(Intent(this, NewTaskActivity::class.java))
+            finish()
+        }
         
         findViewById<View>(R.id.navCalendar).setOnClickListener {
-            startActivity(Intent(this, DeadlinesActivity::class.java))
+            startActivity(Intent(this, CalendarActivity::class.java))
             finish()
         }
 
         findViewById<View>(R.id.navProfile).setOnClickListener {
-            // startActivity(Intent(this, ProfileActivity::class.java))
+            startActivity(Intent(this, ProfileActivity::class.java))
+            finish()
         }
     }
 

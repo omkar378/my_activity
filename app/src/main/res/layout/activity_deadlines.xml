@@ -104,7 +104,7 @@
                     android:id="@+id/ivEmptyIcon"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/ic_nav_calendar"
+                    android:src="@drawable/ic_gemini"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -292,13 +292,13 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_nav_calendar"
+                android:src="@drawable/ic_gemini"
                 app:tint="@color/accent_blue"
-                android:contentDescription="Calendar" />
+                android:contentDescription="AI Planner" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Calendar"
+                android:text="AI Planner"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/accent_blue"
                 android:textSize="12sp" />

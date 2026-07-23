@@ -216,13 +216,13 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_nav_calendar"
+                android:src="@drawable/ic_gemini"
                 app:tint="@color/text_secondary"
-                android:contentDescription="Calendar" />
+                android:contentDescription="AI Planner" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Calendar"
+                android:text="AI Planner"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />

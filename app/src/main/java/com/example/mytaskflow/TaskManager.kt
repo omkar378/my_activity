@@ -1,38 +1,29 @@
 package com.example.mytaskflow
 
 import android.content.Context
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 object TaskManager {
-    private val tasks = mutableListOf<Task>()
     private const val PREFS_NAME = "task_prefs"
     private const val TASKS_KEY = "tasks_list"
+    private val tasks = mutableListOf<Task>()
 
     fun loadTasks(context: Context) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        val savedData = prefs.getStringSet(TASKS_KEY, emptySet()) ?: emptySet()
+        val json = prefs.getString(TASKS_KEY, null)
         tasks.clear()
-        savedData.forEach { data ->
-            val parts = data.split("|")
-            if (parts.size >= 8) {
-                tasks.add(Task(
-                    id = parts[0].toLong(),
-                    title = parts[1],
-                    description = parts[2],
-                    priority = parts[4],
-                    date = parts[5],
-                    time = parts[6],
-                    status = parts[7]
-                ))
-            }
+        if (json != null) {
+            val type = object : TypeToken<List<Task>>() {}.type
+            val loadedTasks: List<Task> = Gson().fromJson(json, type)
+            tasks.addAll(loadedTasks)
         }
     }
 
-    private fun saveTasks(context: Context) {
+    fun saveTasks(context: Context) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        val dataSet = tasks.map { 
-            "${it.id}|${it.title}|${it.description}|dummy|${it.priority}|${it.date}|${it.time}|${it.status}"
-        }.toSet()
-        prefs.edit().putStringSet(TASKS_KEY, dataSet).apply()
+        val json = Gson().toJson(tasks)
+        prefs.edit().putString(TASKS_KEY, json).apply()
     }
 
     fun addTask(context: Context, task: Task) {

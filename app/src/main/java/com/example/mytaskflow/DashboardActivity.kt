@@ -77,9 +77,7 @@ class DashboardActivity : AppCompatActivity() {
         // AI Study Planner Card Click
         findViewById<View>(R.id.aiIcon).parent?.let { parent ->
             (parent as? View)?.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = android.net.Uri.parse("https://notebooklm.google.com/")
-                startActivity(intent)
+                startActivity(Intent(this, CalendarActivity::class.java))
             }
         }
         
@@ -93,13 +91,13 @@ class DashboardActivity : AppCompatActivity() {
             // Already home
         }
         findViewById<View>(R.id.navTasks).setOnClickListener {
-            startActivity(Intent(this, TasksActivity::class.java))
+            startActivity(Intent(this, NewTaskActivity::class.java))
         }
         findViewById<View>(R.id.navCalendar).setOnClickListener {
-            startActivity(Intent(this, DeadlinesActivity::class.java))
+            startActivity(Intent(this, CalendarActivity::class.java))
         }
         findViewById<View>(R.id.navProfile).setOnClickListener {
-            Toast.makeText(this, "Profile selected", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, ProfileActivity::class.java))
         }
     }
 
