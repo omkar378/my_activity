@@ -21,7 +21,6 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Header -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,18 +45,19 @@
                         android:textSize="14sp" />
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/ivProfileHeader"
+                <TextView
+                    android:id="@+id/tvHeaderTaskCount"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:layout_alignParentEnd="true"
                     android:background="@drawable/stat_item_bg"
-                    android:contentDescription="@string/nav_profile"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_profile_header" />
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
-            <!-- Dashboard Overview Card (STATS INSIDE) -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
                     android:id="@+id/aiIcon"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@android:drawable/ic_menu_myplaces"
+                    android:src="@drawable/ic_gemini"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -278,13 +278,13 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_nav_calendar"
+                android:src="@drawable/ic_gemini"
                 app:tint="@color/text_secondary"
-                android:contentDescription="Calendar" />
+                android:contentDescription="AI Planner" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/nav_calendar"
+                android:text="AI Planner"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />

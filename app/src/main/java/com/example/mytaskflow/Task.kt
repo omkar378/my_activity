@@ -1,16 +1,15 @@
 package com.example.mytaskflow
 
 data class Task(
+    val id: Long = System.currentTimeMillis(),
     val title: String,
     val description: String = "",
-    val category: String, // Projects, Goals, Reminders, Analytics, Notes
+    var category: String = "Other", // Projects, Goals, Reminders, Analytics, Notes
     val priority: String = "Medium",
     val date: String = "",
     val time: String = "",
+    var status: String = "Pending", // Pending, In Progress, Completed
     var progress: Int = 0,
-    val target: String = "",
-    val color: Int = 0,
-    var isCompleted: Boolean = false,
-    var completedTimestamp: Long = 0,
-    val timestamp: Long = System.currentTimeMillis()
+    var target: String = "",
+    var color: Int = 0
 )

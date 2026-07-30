@@ -23,38 +23,61 @@ class DashboardActivity : AppCompatActivity() {
             insets
         }
 
-        findViewById<TextView>(R.id.tvGreeting).text = getString(R.string.greeting_format, UserManager.userName)
-
         setupStats()
         setupSections()
         setupClickListeners()
+
+        if (intent.getBooleanExtra("SHOW_AI_PLANNER", false)) {
+            val aiCard = findViewById<View>(R.id.aiIcon).parent as? View
+            aiCard?.let { card ->
+                card.post {
+                    findViewById<androidx.core.widget.NestedScrollView>(R.id.dashboard_scroll)?.smoothScrollTo(0, card.top)
+                    Toast.makeText(this, "AI Study Planner is here!", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
     }
 
     private fun setupClickListeners() {
         // Subjects Card Click
         findViewById<View>(R.id.cardAddSubject).setOnClickListener {
-            openTaskList("Projects")
+            Toast.makeText(this, "Opening Subject Progress...", Toast.LENGTH_SHORT).show()
         }
 
         // Deadlines Card Click
         findViewById<View>(R.id.cardAddDeadline).setOnClickListener {
-            openTaskList("Reminders")
+            startActivity(Intent(this, DeadlinesActivity::class.java))
         }
 
         // Tasks Card Click
         findViewById<View>(R.id.cardAddTask).setOnClickListener {
-            openTaskList("Tasks")
+            val intent = Intent(this, TodayTasksActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Stat Cards Clicks
+        findViewById<View>(R.id.statTotal).setOnClickListener {
+            openTasksWithFilter("All")
+        }
+        findViewById<View>(R.id.statCompleted).setOnClickListener {
+            openTasksWithFilter("Completed")
+        }
+        findViewById<View>(R.id.statInProgress).setOnClickListener {
+            openTasksWithFilter("In Progress")
+        }
+        findViewById<View>(R.id.statPending).setOnClickListener {
+            openTasksWithFilter("Pending")
         }
 
         // Goals Card Click
         findViewById<View>(R.id.cardAddGoal).setOnClickListener {
-            startActivity(Intent(this, GoalsActivity::class.java))
+            Toast.makeText(this, "Opening Study Goals...", Toast.LENGTH_SHORT).show()
         }
 
         // AI Study Planner Card Click
         findViewById<View>(R.id.aiIcon).parent?.let { parent ->
             (parent as? View)?.setOnClickListener {
-                startActivity(Intent(this, AIPlannerActivity::class.java))
+                startActivity(Intent(this, CalendarActivity::class.java))
             }
         }
         
@@ -65,28 +88,22 @@ class DashboardActivity : AppCompatActivity() {
 
         // Nav Items Click
         findViewById<View>(R.id.navHome).setOnClickListener {
-            // Already here
+            // Already home
         }
         findViewById<View>(R.id.navTasks).setOnClickListener {
-            openTaskList("Tasks")
+            startActivity(Intent(this, NewTaskActivity::class.java))
         }
         findViewById<View>(R.id.navCalendar).setOnClickListener {
-            Toast.makeText(this, "Calendar coming soon!", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, CalendarActivity::class.java))
         }
         findViewById<View>(R.id.navProfile).setOnClickListener {
-            Toast.makeText(this, "Profile selected", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, ProfileActivity::class.java))
-        }
-
-        // Top Header Profile Click
-        findViewById<View>(R.id.ivProfileHeader).setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
     }
 
-    private fun openTaskList(category: String) {
-        val intent = Intent(this, TaskListActivity::class.java)
-        intent.putExtra("CATEGORY", category)
+    private fun openTasksWithFilter(filter: String) {
+        val intent = Intent(this, TasksActivity::class.java)
+        intent.putExtra("FILTER", filter)
         startActivity(intent)
     }
 
@@ -96,63 +113,66 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setupStats() {
+        // Update the top right counter
+        findViewById<TextView>(R.id.tvHeaderTaskCount).text = TaskManager.getTotalTasksCount().toString()
+        
         // Total
         val totalView = findViewById<View>(R.id.statTotal)
-        totalView.findViewById<TextView>(R.id.tvStatLabel).text = getString(R.string.stat_total)
-        totalView.findViewById<TextView>(R.id.tvStatValue).text = TaskRepository.getCountTotal().toString()
+        totalView.findViewById<TextView>(R.id.tvStatLabel).text = "Total"
+        totalView.findViewById<TextView>(R.id.tvStatValue).text = TaskManager.getTotalTasksCount().toString()
         totalView.findViewById<ImageView>(R.id.ivStatIcon).setImageResource(R.drawable.ic_stat_total)
 
         // Completed
         val completedView = findViewById<View>(R.id.statCompleted)
-        completedView.findViewById<TextView>(R.id.tvStatLabel).text = getString(R.string.stat_completed)
-        completedView.findViewById<TextView>(R.id.tvStatValue).text = TaskRepository.getCountCompleted().toString()
+        completedView.findViewById<TextView>(R.id.tvStatLabel).text = "Completed"
+        completedView.findViewById<TextView>(R.id.tvStatValue).text = TaskManager.getTasksCountByStatus("Completed").toString()
         completedView.findViewById<ImageView>(R.id.ivStatIcon).setImageResource(R.drawable.ic_stat_completed)
 
         // In Progress
         val inProgressView = findViewById<View>(R.id.statInProgress)
-        inProgressView.findViewById<TextView>(R.id.tvStatLabel).text = getString(R.string.stat_in_progress)
-        inProgressView.findViewById<TextView>(R.id.tvStatValue).text = TaskRepository.getCountInProgress().toString()
+        inProgressView.findViewById<TextView>(R.id.tvStatLabel).text = "In Progress"
+        inProgressView.findViewById<TextView>(R.id.tvStatValue).text = TaskManager.getTasksCountByStatus("In Progress").toString()
         inProgressView.findViewById<ImageView>(R.id.ivStatIcon).setImageResource(R.drawable.ic_stat_in_progress)
 
         // Pending
         val pendingView = findViewById<View>(R.id.statPending)
-        pendingView.findViewById<TextView>(R.id.tvStatLabel).text = getString(R.string.stat_pending)
-        pendingView.findViewById<TextView>(R.id.tvStatValue).text = TaskRepository.getCountPending().toString()
+        pendingView.findViewById<TextView>(R.id.tvStatLabel).text = "Pending"
+        pendingView.findViewById<TextView>(R.id.tvStatValue).text = TaskManager.getTasksCountByStatus("Pending").toString()
         pendingView.findViewById<ImageView>(R.id.ivStatIcon).setImageResource(R.drawable.ic_stat_pending)
 
         // Overdue
         val overdueView = findViewById<View>(R.id.statOverdue)
-        overdueView.findViewById<TextView>(R.id.tvStatLabel).text = getString(R.string.stat_overdue)
-        overdueView.findViewById<TextView>(R.id.tvStatValue).text = TaskRepository.getCountOverdue().toString()
+        overdueView.findViewById<TextView>(R.id.tvStatLabel).text = "Overdue"
+        overdueView.findViewById<TextView>(R.id.tvStatValue).text = TaskManager.getOverdueCount().toString()
         overdueView.findViewById<ImageView>(R.id.ivStatIcon).setImageResource(R.drawable.ic_stat_overdue)
     }
 
     private fun setupSections() {
         // Subjects
-        findViewById<View>(R.id.headerSubjects).findViewById<TextView>(R.id.tvSectionTitle).text = getString(R.string.section_subjects)
+        findViewById<View>(R.id.headerSubjects).findViewById<TextView>(R.id.tvSectionTitle).text = "Subject Progress"
         findViewById<View>(R.id.cardAddSubject).let {
-            it.findViewById<TextView>(R.id.tvLabel).text = getString(R.string.add_subjects)
+            it.findViewById<TextView>(R.id.tvLabel).text = "Add your subjects"
             it.findViewById<ImageView>(R.id.ivIcon).setImageResource(R.drawable.ic_section_subjects)
         }
 
         // Deadlines
-        findViewById<View>(R.id.headerDeadlines).findViewById<TextView>(R.id.tvSectionTitle).text = getString(R.string.section_deadlines)
+        findViewById<View>(R.id.headerDeadlines).findViewById<TextView>(R.id.tvSectionTitle).text = "Upcoming Deadlines"
         findViewById<View>(R.id.cardAddDeadline).let {
-            it.findViewById<TextView>(R.id.tvLabel).text = getString(R.string.no_deadlines)
+            it.findViewById<TextView>(R.id.tvLabel).text = "No upcoming deadlines"
             it.findViewById<ImageView>(R.id.ivIcon).setImageResource(R.drawable.ic_section_deadlines)
         }
 
         // Tasks
-        findViewById<View>(R.id.headerTasks).findViewById<TextView>(R.id.tvSectionTitle).text = getString(R.string.section_tasks)
+        findViewById<View>(R.id.headerTasks).findViewById<TextView>(R.id.tvSectionTitle).text = "Today\'s Tasks"
         findViewById<View>(R.id.cardAddTask).let {
-            it.findViewById<TextView>(R.id.tvLabel).text = getString(R.string.all_caught_up)
+            it.findViewById<TextView>(R.id.tvLabel).text = "You\'re all caught up!"
             it.findViewById<ImageView>(R.id.ivIcon).setImageResource(R.drawable.ic_section_tasks)
         }
 
         // Goals
-        findViewById<View>(R.id.headerGoals).findViewById<TextView>(R.id.tvSectionTitle).text = getString(R.string.section_goals)
+        findViewById<View>(R.id.headerGoals).findViewById<TextView>(R.id.tvSectionTitle).text = "Study Goals"
         findViewById<View>(R.id.cardAddGoal).let {
-            it.findViewById<TextView>(R.id.tvLabel).text = getString(R.string.set_first_goal)
+            it.findViewById<TextView>(R.id.tvLabel).text = "Set your first goal"
             it.findViewById<ImageView>(R.id.ivIcon).setImageResource(R.drawable.ic_section_goals)
         }
     }

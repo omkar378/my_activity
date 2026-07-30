@@ -80,15 +80,15 @@ class TaskAdapter(
             is TaskViewHolder -> {
                 holder.tvTitle.text = task.title
                 holder.tvDesc.text = task.description
-                holder.tvTime.text = task.time
-                holder.tvDate.text = task.date
+                holder.tvDateTime.text = "${task.date} ${task.time}"
+                holder.tvPriority.text = task.priority
                 val colorRes = when (task.priority) {
                     "High" -> R.color.status_red
                     "Medium" -> R.color.status_orange
                     "Low" -> R.color.status_blue
                     else -> R.color.accent_blue
                 }
-                holder.priorityIndicator.setBackgroundResource(colorRes)
+                holder.tvPriority.setTextColor(holder.itemView.context.getColor(colorRes))
             }
         }
     }
@@ -103,9 +103,8 @@ class TaskAdapter(
     class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvTitle: TextView = view.findViewById(R.id.tvTaskTitle)
         val tvDesc: TextView = view.findViewById(R.id.tvTaskDesc)
-        val tvTime: TextView = view.findViewById(R.id.tvTaskTime)
-        val tvDate: TextView = view.findViewById(R.id.tvTaskDate)
-        val priorityIndicator: View = view.findViewById(R.id.priorityIndicator)
+        val tvDateTime: TextView = view.findViewById(R.id.tvDateTime)
+        val tvPriority: TextView = view.findViewById(R.id.tvPriority)
     }
 
     class SubjectViewHolder(view: View) : RecyclerView.ViewHolder(view) {

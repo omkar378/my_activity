@@ -20,8 +20,6 @@ class NewTaskActivity : AppCompatActivity() {
     private lateinit var tvDueDate: TextView
     private lateinit var etTime: EditText
     private var selectedDate: String = ""
-    private var selectedCategory: String = "Other"
-    private var selectedPriority: String = "Medium"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,20 +48,6 @@ class NewTaskActivity : AppCompatActivity() {
                 it.isSelected = !it.isSelected
             }
         }
-        // Category Selection (Single selection for simplicity in filtering)
-        val categories = listOf(
-            R.id.catProjects, R.id.catGoals, R.id.catReminders, 
-            R.id.catNotes, R.id.catAnalytics, R.id.catOther
-        )
-        categories.forEach { id ->
-            findViewById<TextView>(id).setOnClickListener { view ->
-                categories.forEach { findViewById<View>(it).isSelected = false }
-                view.isSelected = true
-                selectedCategory = (view as TextView).text.toString()
-            }
-        }
-        // Set default category
-        findViewById<View>(R.id.catOther).isSelected = true
 
         // Priority Selection (Exclusive)
         val priorities = listOf(R.id.priLow, R.id.priMedium, R.id.priHigh)
@@ -71,11 +55,21 @@ class NewTaskActivity : AppCompatActivity() {
             findViewById<TextView>(id).setOnClickListener { view ->
                 priorities.forEach { findViewById<View>(it).isSelected = false }
                 view.isSelected = true
-                selectedPriority = (view as TextView).text.toString()
             }
         }
         // Set default priority
         findViewById<View>(R.id.priMedium).isSelected = true
+
+        // Status Selection (Exclusive)
+        val statuses = listOf(R.id.statusPending, R.id.statusInProgress, R.id.statusCompleted)
+        statuses.forEach { id ->
+            findViewById<TextView>(id).setOnClickListener { view ->
+                statuses.forEach { findViewById<View>(it).isSelected = false }
+                view.isSelected = true
+            }
+        }
+        // Set default status
+        findViewById<View>(R.id.statusPending).isSelected = true
 
         // Date Picker
         tvDueDate = findViewById(R.id.tvDueDate)
@@ -94,27 +88,37 @@ class NewTaskActivity : AppCompatActivity() {
         // Create Task
         findViewById<Button>(R.id.btnCreateTask).setOnClickListener {
             val title = findViewById<EditText>(R.id.etTaskTitle).text.toString()
-            if (title.isNotEmpty()) {
-                Toast.makeText(this, "Task '$title' Created!", Toast.LENGTH_SHORT).show()
             val description = findViewById<EditText>(R.id.etDescription).text.toString()
-            val timeValue = etTime.text.toString()
-
+            
             if (title.isNotEmpty()) {
                 val newTask = Task(
                     title = title,
                     description = description,
-                    category = selectedCategory,
-                    priority = selectedPriority,
                     date = selectedDate,
-                    time = timeValue
+                    time = etTime.text.toString(),
+                    priority = getSelectedPriority(),
+                    status = getSelectedStatus()
                 )
-                TaskRepository.addTask(newTask)
-                Toast.makeText(this, "Task '$title' Saved to $selectedCategory!", Toast.LENGTH_SHORT).show()
+                TaskManager.addTask(this, newTask)
+                
+                Toast.makeText(this, "Task '$title' Created!", Toast.LENGTH_SHORT).show()
                 finish()
             } else {
                 Toast.makeText(this, "Please enter a task title", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun getSelectedPriority(): String {
+        if (findViewById<View>(R.id.priHigh).isSelected) return "High"
+        if (findViewById<View>(R.id.priLow).isSelected) return "Low"
+        return "Medium"
+    }
+
+    private fun getSelectedStatus(): String {
+        if (findViewById<View>(R.id.statusCompleted).isSelected) return "Completed"
+        if (findViewById<View>(R.id.statusInProgress).isSelected) return "In Progress"
+        return "Pending"
     }
 
     private fun showDatePicker() {

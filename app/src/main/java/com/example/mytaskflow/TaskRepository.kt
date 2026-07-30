@@ -27,8 +27,7 @@ object TaskRepository {
         val index = tasks.indexOf(task)
         if (index != -1) {
             val updatedTask = tasks[index]
-            val newProgress = (updatedTask.progress + delta).coerceIn(0, 100)
-            updatedTask.progress = newProgress
+            updatedTask.progress = (updatedTask.progress + delta).coerceIn(0, 100)
         }
     }
 }

@@ -85,10 +85,6 @@ class ProfileActivity : AppCompatActivity() {
         findViewById<View>(R.id.btnSignOut).setOnClickListener {
             signOut()
         }
-
-        findViewById<View>(R.id.btnAskAI).setOnClickListener {
-            startActivity(Intent(this, AIPlannerActivity::class.java))
-        }
     }
 
     private fun signOut() {

@@ -49,7 +49,7 @@ class GoalsActivity : AppCompatActivity() {
 
         // Calculate progress for Goals category
         val goals = TaskRepository.getTasksByCategory("Goals")
-        val completedThisWeek = goals.count { it.isCompleted } // Ideally filter by date too
+        val completedThisWeek = goals.count { it.status == "Completed" } // Ideally filter by date too
         val totalGoals = goals.size
         
         val progressPercent = if (totalGoals > 0) (completedThisWeek.toFloat() / totalGoals * 100).toInt() else 0

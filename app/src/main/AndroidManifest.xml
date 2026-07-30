@@ -40,42 +40,17 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".ProfileActivity"
+            android:name=".TasksActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".TaskListActivity"
+            android:name=".DeadlinesActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".DashboardActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".NewTaskActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-
-        <activity
-            android:name=".ProfileActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".TaskListActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".AIPlannerActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".GoalsActivity"
+            android:name=".TodayTasksActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

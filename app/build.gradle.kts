@@ -36,7 +36,17 @@ dependencies {
     implementation(libs.play.services.auth)
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)
+    implementation(libs.gson)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
+    // RecyclerView
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
+
+// CardView
+    implementation("androidx.cardview:cardview:1.0.0")
+
+// Material Components (keep only if not already present)
+    implementation("com.google.android.material:material:1.13.0")
+
 }

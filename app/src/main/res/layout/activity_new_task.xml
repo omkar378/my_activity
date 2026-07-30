@@ -46,7 +46,6 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Task Title -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,7 +66,6 @@
                 android:textColorHint="#444444"
                 android:textSize="16sp" />
 
-            <!-- Description -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -90,7 +88,6 @@
                 android:textColorHint="#444444"
                 android:textSize="16sp" />
 
-            <!-- Category -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -114,10 +111,6 @@
                     <TextView android:id="@+id/catDSA" style="@style/CategoryChipStyle" android:text="DSA" />
                     <TextView android:id="@+id/catDBMS" style="@style/CategoryChipStyle" android:text="DBMS" />
                     <TextView android:id="@+id/catOS" style="@style/CategoryChipStyle" android:text="OS" />
-                    <TextView android:id="@+id/catProjects" style="@style/CategoryChipStyle" android:text="Projects" />
-                    <TextView android:id="@+id/catGoals" style="@style/CategoryChipStyle" android:text="Goals" />
-                    <TextView android:id="@+id/catReminders" style="@style/CategoryChipStyle" android:text="Reminders" />
-                    <TextView android:id="@+id/catNotes" style="@style/CategoryChipStyle" android:text="Notes" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -126,12 +119,10 @@
                     android:layout_marginTop="4dp"
                     android:orientation="horizontal">
                     <TextView android:id="@+id/catMath" style="@style/CategoryChipStyle" android:text="Math" />
-                    <TextView android:id="@+id/catAnalytics" style="@style/CategoryChipStyle" android:text="Analytics" />
                     <TextView android:id="@+id/catOther" style="@style/CategoryChipStyle" android:text="Other" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Priority -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -140,6 +131,43 @@
                 android:textColor="@color/text_secondary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Status"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/statusPending"
+                    style="@style/PriorityChipStyle"
+                    android:layout_weight="1"
+                    android:background="@drawable/priority_low_selector"
+                    android:text="Pending" />
+
+                <TextView
+                    android:id="@+id/statusInProgress"
+                    style="@style/PriorityChipStyle"
+                    android:layout_weight="1"
+                    android:background="@drawable/priority_medium_selector"
+                    android:text="In Progress" />
+
+                <TextView
+                    android:id="@+id/statusCompleted"
+                    style="@style/PriorityChipStyle"
+                    android:layout_weight="1"
+                    android:background="@drawable/priority_high_selector"
+                    android:text="Completed" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -172,7 +200,6 @@
                     android:text="High" />
             </LinearLayout>
 
-            <!-- Date and Time -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
